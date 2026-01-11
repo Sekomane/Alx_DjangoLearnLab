@@ -1,4 +1,4 @@
-b.delete()
+book.delete()
 
 Book.objects.all()
 

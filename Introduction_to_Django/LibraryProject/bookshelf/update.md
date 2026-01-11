@@ -1,8 +1,8 @@
-b.title = "Nineteen Eighty-Four"
+book.title = "Nineteen Eighty-Four"
 
-b.save()
+book.save()
 
-b.title
+book.title
 
 \# Output: 'Nineteen Eighty-Four'
 
