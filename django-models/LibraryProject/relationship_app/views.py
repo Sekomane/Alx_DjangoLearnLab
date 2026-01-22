@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from django.views.generic.detail import DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .models import Book
-from .models import Library
 from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render
+from .models import Book, Library
+
+
+# ---------- BOOK & LIBRARY VIEWS ----------
 
 def list_books(request):
     books = Book.objects.all()
@@ -18,6 +19,8 @@ class LibraryDetailView(DetailView):
     context_object_name = "library"
 
 
+# ---------- AUTH REGISTRATION ----------
+
 def register(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
@@ -28,34 +31,35 @@ def register(request):
     else:
         form = UserCreationForm()
 
+    return render(request, "relationship_app/register.html", {"form": form})
 
 
+# ---------- ROLE CHECK FUNCTIONS ----------
 
 def is_admin(user):
-    return user.userprofile.role == 'Admin'
+    return user.userprofile.role == "Admin"
 
 
 def is_librarian(user):
-    return user.userprofile.role == 'Librarian'
+    return user.userprofile.role == "Librarian"
 
 
 def is_member(user):
-    return user.userprofile.role == 'Member'
+    return user.userprofile.role == "Member"
 
+
+# ---------- ROLE-BASED VIEWS ----------
 
 @user_passes_test(is_admin)
 def admin_view(request):
-    return render(request, 'relationship_app/admin_view.html')
+    return render(request, "relationship_app/admin_view.html")
 
 
 @user_passes_test(is_librarian)
 def librarian_view(request):
-    return render(request, 'relationship_app/librarian_view.html')
+    return render(request, "relationship_app/librarian_view.html")
 
 
 @user_passes_test(is_member)
 def member_view(request):
-    return render(request, 'relationship_app/member_view.html')
-
-
-    return render(request, "relationship_app/register.html", {"form": form})
+    return render(request, "relationship_app/member_view.html")
