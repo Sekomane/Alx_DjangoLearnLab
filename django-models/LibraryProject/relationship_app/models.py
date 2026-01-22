@@ -25,11 +25,10 @@ class Library(models.Model):
         return self.name
 
 
-# 🔐 ROLE-BASED ACCESS CONTROL MODEL
 class UserProfile(models.Model):
     ROLE_CHOICES = [
         ("Admin", "Admin"),
-        ("Librarian", "Librarians"),
+        ("Librarian", "Librarian"),
         ("Member", "Member"),
     ]
 
@@ -38,6 +37,7 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.role}"
+
 
 
 # 📚 Librarian domain model (NOT auth-related)

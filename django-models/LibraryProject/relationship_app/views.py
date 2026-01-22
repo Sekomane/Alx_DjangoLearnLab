@@ -41,11 +41,7 @@ def is_admin(user):
 
 
 def is_librarian(user):
-    return user.userprofile.role in ["Librarian", "Librarians"]
-
-
-def is_librarians(user):
-    return user.userprofile.role == "Librarians"
+    return user.userprofile.role == "Librarian"
 
 
 def is_member(user):
@@ -57,7 +53,6 @@ def admin_view(request):
     return render(request, "relationship_app/admin_view.html")
 
 
-# @userpassestest decorator used to restrict access to Librarians
 @user_passes_test(is_librarian)
 def librarian_view(request):
     return render(request, "relationship_app/librarian_view.html")
