@@ -40,13 +40,13 @@ def is_admin(user):
     return user.userprofile.role == "Admin"
 
 
-def is_librarian(user):
-    # ALX expects the word "Librarians"
-    return user.userprofile.role in ["Librarian", "Librarians"]
+def is_librarians(user):
+    return user.userprofile.role == "Librarians"
 
 
 def is_member(user):
     return user.userprofile.role == "Member"
+
 
 
 # ---------- ROLE-BASED ACCESS VIEWS ----------
@@ -57,7 +57,7 @@ def admin_view(request):
 
 
 # @userpassestest decorator used to restrict access to Librarians
-@user_passes_test(is_librarian)
+@user_passes_test(is_librarians)
 def librarian_view(request):
     return render(request, "relationship_app/librarian_view.html")
 
