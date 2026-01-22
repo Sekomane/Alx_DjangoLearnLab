@@ -2,12 +2,9 @@ from django.shortcuts import render, redirect
 from django.views.generic.detail import DetailView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.views import LoginView, LogoutView
-from .models import Library
 from .models import Book
+from .models import Library
 
-
-# ---------- BOOK & LIBRARY VIEWS ----------
 
 def list_books(request):
     books = Book.objects.all()
@@ -18,16 +15,6 @@ class LibraryDetailView(DetailView):
     model = Library
     template_name = "relationship_app/library_detail.html"
     context_object_name = "library"
-
-
-# ---------- AUTHENTICATION VIEWS ----------
-
-class UserLoginView(LoginView):
-    template_name = "relationship_app/login.html"
-
-
-class UserLogoutView(LogoutView):
-    template_name = "relationship_app/logout.html"
 
 
 def register(request):
