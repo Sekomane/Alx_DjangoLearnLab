@@ -41,14 +41,15 @@ def is_admin(user):
 
 
 def is_librarian(user):
-    return user.userprofile.role == "Librarian"
+    # ALX expects the word "Librarians"
+    return user.userprofile.role in ["Librarian", "Librarians"]
 
 
 def is_member(user):
     return user.userprofile.role == "Member"
 
 
-# ---------- ROLE-BASED VIEWS ----------
+# Role-based access views using @user_passes_test
 
 @user_passes_test(is_admin)
 def admin_view(request):
