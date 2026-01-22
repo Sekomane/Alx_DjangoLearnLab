@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'relationship_app',
+    'relationship_app.apps.RelationshipAppConfig',
 ]
 
 
