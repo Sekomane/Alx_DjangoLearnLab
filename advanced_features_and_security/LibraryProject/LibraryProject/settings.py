@@ -23,7 +23,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#l_9c^8udq=ue@26=&acmaluuehmr9e*#4ey5hblunjihorli('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+# Prevent browser MIME-type sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enable browser XSS filtering
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent clickjacking attacks
+X_FRAME_OPTIONS = 'DENY'
+
+# Ensure cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
 
 ALLOWED_HOSTS = []
 
@@ -44,16 +58,23 @@ INSTALLED_APPS = [
     'bookshelf',
 
     'relationship_app.apps.RelationshipAppConfig',
+
+    'csp',
 ]
 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    'csp.middleware.CSPMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -131,3 +152,11 @@ STATIC_URL = 'static/'
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
+# Content Security Policy configuration to prevent XSS attacks
+CSP_DEFAULT_SRC = ("'self'",)
+
+CSP_SCRIPT_SRC = ("'self'",)
+
+CSP_STYLE_SRC = ("'self'",)
+
+CSP_IMG_SRC = ("'self'", "data:")
