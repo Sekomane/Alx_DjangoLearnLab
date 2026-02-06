@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
        # Third-party
     'rest_framework',
-
+    'django_filters', 
     # Local
     'api',
 ]
@@ -126,5 +126,10 @@ REST_FRAMEWORK = {
     # Default permission
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
+    ],
+        'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
     ]
 }
