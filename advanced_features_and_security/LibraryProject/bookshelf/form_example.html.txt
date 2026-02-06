@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example Form</title>
+</head>
+<body>
+
+<h2>Example Secure Form</h2>
+
+{% if success %}
+    <p>Form submitted successfully. Hello {{ name }}!</p>
+{% endif %}
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">Submit</button>
+
+</form>
+
+</body>
+</html>
