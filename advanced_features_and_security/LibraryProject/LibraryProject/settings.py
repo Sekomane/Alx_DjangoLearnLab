@@ -34,6 +34,7 @@ SECURE_BROWSER_XSS_FILTER = True
 # Prevent clickjacking attacks
 X_FRAME_OPTIONS = 'DENY'
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Ensure cookies are only sent over HTTPS
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
@@ -128,9 +129,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/6.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -144,15 +142,10 @@ LOGIN_REDIRECT_URL = 'list_books'
 LOGOUT_REDIRECT_URL = 'login'
 
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
-
 STATIC_URL = 'static/'
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
-# Content Security Policy configuration to prevent XSS attacks
 CSP_DEFAULT_SRC = ("'self'",)
 
 CSP_SCRIPT_SRC = ("'self'",)
