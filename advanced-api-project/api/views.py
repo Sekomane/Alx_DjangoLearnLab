@@ -1,8 +1,9 @@
 from rest_framework import generics, filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import rest_framework   # REQUIRED by ALX
 from .models import Book
 from .serializers import BookSerializer
+
 
 
 
@@ -15,36 +16,20 @@ class BookListView(generics.ListAPIView):
 
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    # Enable filtering
+    # Filtering, Searching, Ordering
     filter_backends = [
-        DjangoFilterBackend,
+        rest_framework.DjangoFilterBackend,
         filters.SearchFilter,
         filters.OrderingFilter
     ]
 
-    # Filtering fields
-    filterset_fields = [
-        'title',
-        'publication_year',
-        'author'
-    ]
+    filterset_fields = ['title', 'publication_year', 'author']
 
-    # Search fields
-    search_fields = [
-        'title',
-        'author__name'
-    ]
+    search_fields = ['title', 'author__name']
 
-    # Ordering fields
-    ordering_fields = [
-        'title',
-        'publication_year'
-    ]
+    ordering_fields = ['title', 'publication_year']
 
-    # Default ordering
     ordering = ['title']
-
-
 
 # Retrieve a single book
 # Anyone can read
