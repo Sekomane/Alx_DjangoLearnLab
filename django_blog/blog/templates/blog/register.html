@@ -1,9 +1,19 @@
-<h2>Register</h2>
+<h1>All Posts</h1>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
+<a href="/posts/new/">Create New Post</a>
 
-<a href="/login/">Login here</a>
+{% for post in posts %}
+
+<h3>
+<a href="/posts/{{ post.id }}/">
+{{ post.title }}
+</a>
+</h3>
+
+<p>{{ post.content|truncatewords:20 }}</p>
+
+<p>By {{ post.author }}</p>
+
+<hr>
+
+{% endfor %}
