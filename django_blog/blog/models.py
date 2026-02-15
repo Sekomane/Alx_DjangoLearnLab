@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# FIRST: Post model
 class Post(models.Model):
 
     title = models.CharField(max_length=200)
@@ -17,11 +16,12 @@ class Post(models.Model):
         related_name="posts"
     )
 
+    tags = models.ManyToManyField("Tag", related_name="posts", blank=True)
+
     def __str__(self):
         return self.title
 
 
-# SECOND: Comment model
 class Comment(models.Model):
 
     post = models.ForeignKey(
@@ -30,10 +30,7 @@ class Comment(models.Model):
         related_name="comments"
     )
 
-    author = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
-    )
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     content = models.TextField()
 
@@ -43,3 +40,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.author} on {self.post}"
+
+
+class Tag(models.Model):
+
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
