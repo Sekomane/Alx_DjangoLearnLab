@@ -7,6 +7,7 @@ from django.db.models import Q
 from .models import Comment
 from .forms import CommentForm
 from django.shortcuts import get_object_or_404
+from taggit.models import Tag
 
 from django.urls import reverse_lazy
 
@@ -127,6 +128,22 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def get_success_url(self):
 
         return reverse_lazy("post-detail", kwargs={"pk": self.object.post.id})
+
+class PostByTagListView(ListView):
+
+    model = Post
+    template_name = "blog/post_list.html"
+    context_object_name = "posts"
+
+    def get_queryset(self):
+
+        tag_slug = self.kwargs.get("tag_slug")
+
+        tag = get_object_or_404(Tag, slug=tag_slug)
+
+        return Post.objects.filter(tags=tag).order_by("-published_date")
+
+
 # Search
 def search_posts(request):
 

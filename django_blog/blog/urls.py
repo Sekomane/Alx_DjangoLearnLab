@@ -10,6 +10,7 @@ from .views import (
     CommentUpdateView,
     CommentDeleteView,
 )
+from .views import PostByTagListView
 
 urlpatterns = [
 
@@ -45,6 +46,12 @@ urlpatterns = [
         CommentDeleteView.as_view(),
         name="comment-delete",
     ),
+
+    path(
+    "tags/<slug:tag_slug>/",
+    PostByTagListView.as_view(),
+    name="posts-by-tag"
+),
 
     
 ]
