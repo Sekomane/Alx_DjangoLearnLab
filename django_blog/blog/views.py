@@ -80,7 +80,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
 
-        post = get_object_or_404(Post, pk=self.kwargs["pk"])
+        post = get_object_or_404(Post, id=self.kwargs["post_id"])
 
         form.instance.post = post
 
@@ -90,7 +90,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
 
-        return reverse_lazy("post-detail", kwargs={"pk": self.kwargs["pk"]})
+        return reverse_lazy("post-detail", kwargs={"pk": self.object.post.id})
 
 
 # UPDATE COMMENT
