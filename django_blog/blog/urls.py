@@ -1,4 +1,5 @@
 from django.urls import path
+from . import views 
 from .views import (
     PostListView,
     PostDetailView,
@@ -23,6 +24,9 @@ urlpatterns = [
 
     path("post/<int:pk>/delete/", PostDeleteView.as_view(), name="post-delete"),
 
+    path("search/", views.search_posts, name="search-posts"),
+
+
     # COMMENT CRUD (EXACT REQUIRED PATHS)
     path(
         "post/<int:pk>/comments/new/",
@@ -41,4 +45,6 @@ urlpatterns = [
         CommentDeleteView.as_view(),
         name="comment-delete",
     ),
+
+    
 ]

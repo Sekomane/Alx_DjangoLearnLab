@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.db.models import Q
 
 from .models import Comment
 from .forms import CommentForm
@@ -126,3 +127,29 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def get_success_url(self):
 
         return reverse_lazy("post-detail", kwargs={"pk": self.object.post.id})
+# Search
+def search_posts(request):
+
+    query = request.GET.get("q")
+
+    posts = Post.objects.all()
+
+    if query:
+
+        posts = Post.objects.filter(
+
+            Q(title__icontains=query) |
+
+            Q(content__icontains=query) |
+
+            Q(tags__name__icontains=query)
+
+        ).distinct()
+
+    return render(request, "blog/search_results.html", {
+
+        "posts": posts,
+
+        "query": query
+
+    })

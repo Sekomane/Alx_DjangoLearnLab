@@ -1,0 +1,17 @@
+<h2>Search Results</h2>
+
+{% if query %}
+<p>You searched for "{{ query }}"</p>
+{% endif %}
+
+{% for post in posts %}
+
+<h3>{{ post.title }}</h3>
+
+<p>{{ post.content }}</p>
+
+{% empty %}
+
+<p>No posts found.</p>
+
+{% endfor %}
