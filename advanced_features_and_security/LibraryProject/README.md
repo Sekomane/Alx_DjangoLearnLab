@@ -6,6 +6,7 @@ The model extends Django’s `AbstractUser` and adds the following fields:
 - date_of_birth
 - profile_photo
 
+
 The custom user model is set using:
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
